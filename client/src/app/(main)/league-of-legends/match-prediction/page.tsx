@@ -1,0 +1,131 @@
+'use client';
+import { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
+import { lolMatchPredictionAction } from '@/app/lib/actions';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { GamingSlider } from '@/app/components/gaming-slider';
+import { SubmitButton } from '@/app/components/submit-button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useState } from 'react';
+
+const initialState = { winner: null, error: null };
+
+function PredictionResult({ state }: { state: typeof initialState }) {
+    const { pending } = useFormStatus();
+
+    if (pending) {
+        return (
+            <div className="flex flex-col items-center gap-2">
+                <Skeleton className="h-8 w-48" />
+                <Skeleton className="h-4 w-64" />
+            </div>
+        )
+    }
+
+    if (state.error) {
+        return <p className="text-destructive">{state.error}</p>;
+    }
+    
+    if (state.winner !== null) {
+        const winnerText = state.winner === 1 ? "Team 1" : "Team 2";
+        return (
+            <div className="text-center space-y-2 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <h3 className="text-3xl font-bold">Predicted Winner</h3>
+                <div className="text-4xl font-extrabold bg-gradient-to-r from-primary via-[#DC2626] to-primary bg-clip-text text-transparent animate-gradient">
+                    {winnerText}
+                </div>
+                <p className="text-muted-foreground">Based on the objective control stats provided.</p>
+            </div>
+        );
+    }
+    
+    return null;
+}
+
+const teamFields = [
+    { name: "Tower Kills", id: "TowerKills", defaultValue: 5, min: 0, max: 11, step: 1 },
+    { name: "Inhibitor Kills", id: "InhibitorKills", defaultValue: 1, min: 0, max: 5, step: 1 },
+    { name: "Baron Kills", id: "BaronKills", defaultValue: 0, min: 0, max: 5, step: 1 },
+    { name: "Dragon Kills", id: "DragonKills", defaultValue: 2, min: 0, max: 7, step: 1 },
+    { name: "Rift Herald Kills", id: "RiftHeraldKills", defaultValue: 1, min: 0, max: 3, step: 1 },
+];
+
+export default function LolMatchPredictionPage() {
+  const [state, formAction] = useActionState(lolMatchPredictionAction, initialState);
+  
+  // Initialize state for both teams
+  const [team1Values, setTeam1Values] = useState<Record<string, number>>(
+    Object.fromEntries(teamFields.map(f => [f.id, f.defaultValue]))
+  );
+  const [team2Values, setTeam2Values] = useState<Record<string, number>>(
+    Object.fromEntries(teamFields.map(f => [f.id, f.defaultValue]))
+  );
+  
+  return (
+    <div className="max-w-4xl mx-auto">
+        <div className="space-y-2 mb-6">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-[#991B1B] via-[#DC2626] to-[#991B1B] bg-clip-text text-transparent animate-gradient">
+            League of Legends Match Prediction
+          </h1>
+          <p className="text-muted-foreground text-lg">
+            Enter objective stats for both teams to predict which one will win.
+          </p>
+        </div>
+
+        <form action={formAction}>
+            <Card className="border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 bg-gradient-to-br from-card to-card/50 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle>Match Statistics</CardTitle>
+                    <CardDescription>Enter the number of major objectives taken by each team.</CardDescription>
+                </CardHeader>
+                <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {/* Team 1 */}
+                    <div className="space-y-4 p-4 border rounded-lg">
+                        <h3 className="text-xl font-semibold text-gray-300">Team 1</h3>
+                        {teamFields.map(field => (
+                             <div className="space-y-2" key={`team1-${field.id}`}>
+                                <GamingSlider
+                                    label={field.name}
+                                    name={`team1${field.id}`}
+                                    value={team1Values[field.id]}
+                                    onValueChange={(value) => setTeam1Values(prev => ({ ...prev, [field.id]: value }))}
+                                    min={field.min}
+                                    max={field.max}
+                                    step={field.step}
+                                />
+                                <input type="hidden" name={`team1${field.id}`} value={team1Values[field.id]} />
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Team 2 */}
+                    <div className="space-y-4 p-4 border rounded-lg">
+                        <h3 className="text-xl font-semibold text-gray-300">Team 2</h3>
+                        {teamFields.map(field => (
+                             <div className="space-y-2" key={`team2-${field.id}`}>
+                                <GamingSlider
+                                    label={field.name}
+                                    name={`team2${field.id}`}
+                                    value={team2Values[field.id]}
+                                    onValueChange={(value) => setTeam2Values(prev => ({ ...prev, [field.id]: value }))}
+                                    min={field.min}
+                                    max={field.max}
+                                    step={field.step}
+                                />
+                                <input type="hidden" name={`team2${field.id}`} value={team2Values[field.id]} />
+                            </div>
+                        ))}
+                    </div>
+                </CardContent>
+                <CardFooter className="flex flex-col items-center gap-6">
+                    <SubmitButton>Predict Winner 👑</SubmitButton>
+                     <div className="w-full mt-4 h-16 flex items-center justify-center">
+                        <PredictionResult state={state} />
+                    </div>
+                </CardFooter>
+            </Card>
+        </form>
+    </div>
+  );
+}
