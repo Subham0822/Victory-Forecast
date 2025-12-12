@@ -1,6 +1,6 @@
 # UI Enhancements - Gaming Theme
 
-This document describes the gaming-themed UI enhancements added to Esports Oracle.
+This document describes the gaming-themed UI enhancements added to Victory Forecast.
 
 ## Installation Instructions
 
@@ -9,12 +9,14 @@ This document describes the gaming-themed UI enhancements added to Esports Oracl
 Run the installation script in the `client/EsportsOracle` directory:
 
 **Windows:**
+
 ```bash
 cd client/EsportsOracle
 install-animations.bat
 ```
 
 **Mac/Linux:**
+
 ```bash
 cd client/EsportsOracle
 chmod +x install-animations.sh
@@ -22,6 +24,7 @@ chmod +x install-animations.sh
 ```
 
 Or install manually:
+
 ```bash
 npx jsrepo add https://reactbits.dev/ts/default/Components/ElasticSlider
 npx jsrepo add https://reactbits.dev/ts/default/Backgrounds/PixelBlast
@@ -39,6 +42,7 @@ npx jsrepo add https://reactbits.dev/ts/default/Backgrounds/Particles
 ## Features Added
 
 ### 1. Animated Background
+
 - **Component**: `AnimatedBackground`
 - **Location**: `src/app/components/animated-background.tsx`
 - **Features**:
@@ -47,6 +51,7 @@ npx jsrepo add https://reactbits.dev/ts/default/Backgrounds/Particles
   - Smooth animations
 
 ### 2. Gaming Sliders
+
 - **Component**: `GamingSlider`
 - **Location**: `src/app/components/gaming-slider.tsx`
 - **Features**:
@@ -56,6 +61,7 @@ npx jsrepo add https://reactbits.dev/ts/default/Backgrounds/Particles
   - Smooth transitions
 
 ### 3. Animated Text
+
 - **Component**: `AnimatedText`, `CountUp`
 - **Location**: `src/app/components/animated-text.tsx`
 - **Features**:
@@ -64,12 +70,14 @@ npx jsrepo add https://reactbits.dev/ts/default/Backgrounds/Particles
   - Count-up animations for numbers
 
 ### 4. Enhanced Cards
+
 - Gradient backgrounds
 - Hover glow effects
 - Smooth scale and translate animations
 - Animated borders
 
 ### 5. CSS Animations
+
 - Gradient text animations
 - Glow effects
 - Pulse animations
@@ -86,12 +94,14 @@ npx jsrepo add https://reactbits.dev/ts/default/Backgrounds/Particles
 ## Interactive Elements
 
 1. **Sliders**: All input sliders now have:
+
    - Hover glow effects
    - Real-time value display
    - Smooth animations
    - Gradient progress indicators
 
 2. **Buttons**: Submit buttons feature:
+
    - Gradient backgrounds
    - Hover scale effects
    - Glow shadows
@@ -114,6 +124,7 @@ npx jsrepo add https://reactbits.dev/ts/default/Backgrounds/Particles
 ## Next Steps (Optional)
 
 After installing ReactBits components, you can:
+
 1. Replace custom sliders with ElasticSlider for even better animations
 2. Add PixelBlast background for more dynamic effects
 3. Use SplitText for hero text animations
@@ -125,4 +136,3 @@ After installing ReactBits components, you can:
 - Works on all screen sizes
 - Dark theme optimized
 - Accessible with proper ARIA labels
-

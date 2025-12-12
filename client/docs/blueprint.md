@@ -1,4 +1,4 @@
-# **App Name**: Esports Oracle
+# **App Name**: Victory Forecast
 
 ## Core Features:
 
