@@ -29,7 +29,7 @@ Victory Forecast/
 │   ├── dashboard_lol.py
 │   ├── dashboard_pubg.py
 │   └── dashboard_valo.py
-├── data/                # Training and reference data
+├── data/                # Training and reference data (download from Kaggle - see Datasets section)
 │   ├── csgo/
 │   ├── LeagueofLegends.csv
 │   ├── pubg.csv
@@ -50,34 +50,39 @@ Victory Forecast/
 
 ### Prerequisites
 
-- Python 3.8+ 
+- Python 3.8+
 - Node.js 18+ and npm
 - pip (Python package manager)
 
 ### Backend Setup
 
 1. Navigate to the backend directory:
+
 ```bash
 cd backend
 ```
 
 2. Install Python dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
 
 3. Ensure model files are present in the `../models/` directory:
+
    - `valorant_best_Gradient_Boosting.pkl`
    - `csgo_best_Logistic_Regression.pkl`
    - `pubg_winplace_model.pkl`
    - `xgb_lol_model.pkl`
 
 4. Start the backend server:
+
 ```bash
 python app.py
 ```
 
 Or using uvicorn directly:
+
 ```bash
 uvicorn app:app --reload --port 8000
 ```
@@ -87,30 +92,74 @@ The API will be available at `http://localhost:8000`
 ### Frontend Setup
 
 1. Navigate to the client directory:
+
 ```bash
 cd client/EsportsOracle
 ```
 
 2. Install Node.js dependencies:
+
 ```bash
 npm install
 ```
 
 3. Start the development server:
+
 ```bash
 npm run dev
 ```
 
 The frontend will be available at `http://localhost:9002`
 
+### Dataset Setup
+
+**Note:** The CSV data files are not included in this repository. You need to download them from Kaggle and place them in the `data/` directory.
+
+1. Download the following datasets from Kaggle:
+
+   **CS:GO Dataset:**
+
+   - [CS:GO Match Results](https://www.kaggle.com/datasets/christianlillelund/csgo-matchmaking-damage) - Download `results.csv`, `players.csv`, `picks.csv`, and `economy.csv`
+   - Place all CS:GO files in `data/csgo/` directory
+
+   **League of Legends Dataset:**
+
+   - [League of Legends Ranked Matches](https://www.kaggle.com/datasets/paololol/league-of-legends-ranked-matches) - Download and rename to `LeagueofLegends.csv`
+   - Place in `data/` directory
+
+   **PUBG Dataset:**
+
+   - [PUBG Finish Placement Prediction](https://www.kaggle.com/datasets/ckay16/pubg-finish-placement-prediction) - Download and rename to `pubg.csv`
+   - Place in `data/` directory
+
+   **Valorant Dataset:**
+
+   - [Valorant Match Data](https://www.kaggle.com/datasets/kyawsanhtet/valorant-match-data) - Download and rename to `valo.csv`
+   - Place in `data/` directory
+
+2. After downloading, your `data/` directory structure should look like:
+   ```
+   data/
+   ├── csgo/
+   │   ├── economy.csv
+   │   ├── picks.csv
+   │   ├── players.csv
+   │   └── results.csv
+   ├── LeagueofLegends.csv
+   ├── pubg.csv
+   └── valo.csv
+   ```
+
 ### Dashboard Setup
 
 1. Install dashboard dependencies (from root directory):
+
 ```bash
 pip install -r requirements.txt
 ```
 
 2. Run any dashboard:
+
 ```bash
 streamlit run dashboards/dashboard_lol.py
 streamlit run dashboards/app_valorant_vs.py
@@ -121,18 +170,22 @@ streamlit run dashboards/dashboard_pubg.py
 ## 📡 API Endpoints
 
 ### Valorant Team vs Team
+
 - **POST** `/api/valorant/vs`
 - Predicts match outcome between two Valorant teams
 
 ### CS:GO Team vs Team
+
 - **POST** `/api/csgo/vs`
 - Predicts match outcome between two CS:GO teams
 
 ### PUBG Player Placement
+
 - **POST** `/api/pubg/predict`
 - Predicts player placement/ranking in PUBG matches
 
 ### League of Legends Match Prediction
+
 - **POST** `/api/lol/predict`
 - Predicts match outcome for League of Legends games
 
@@ -178,6 +231,7 @@ curl -X POST http://localhost:8000/api/valorant/vs \
 ## 🛠️ Technologies Used
 
 ### Backend
+
 - **FastAPI** - Modern Python web framework
 - **Uvicorn** - ASGI server
 - **Pandas** - Data manipulation
@@ -186,6 +240,7 @@ curl -X POST http://localhost:8000/api/valorant/vs \
 - **XGBoost** - Gradient boosting models
 
 ### Frontend
+
 - **Next.js 15** - React framework
 - **TypeScript** - Type-safe JavaScript
 - **Tailwind CSS** - Utility-first CSS
@@ -194,6 +249,7 @@ curl -X POST http://localhost:8000/api/valorant/vs \
 - **Genkit AI** - AI integration
 
 ### Dashboards
+
 - **Streamlit** - Interactive dashboard framework
 
 ## 📊 Machine Learning Models
@@ -213,8 +269,37 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 This project is open source and available under the MIT License.
 
+## 📊 Datasets
+
+This project uses the following datasets from Kaggle. **Please download them and place in the `data/` directory before running the dashboards or training models.**
+
+### CS:GO
+
+- **Dataset:** [CS:GO Matchmaking Damage](https://www.kaggle.com/datasets/christianlillelund/csgo-matchmaking-damage)
+- **Files needed:** `results.csv`, `players.csv`, `picks.csv`, `economy.csv`
+- **Location:** Place all files in `data/csgo/` directory
+
+### League of Legends
+
+- **Dataset:** [League of Legends Ranked Matches](https://www.kaggle.com/datasets/paololol/league-of-legends-ranked-matches)
+- **File needed:** Download and rename to `LeagueofLegends.csv`
+- **Location:** Place in `data/` directory
+
+### PUBG
+
+- **Dataset:** [PUBG Finish Placement Prediction](https://www.kaggle.com/datasets/ckay16/pubg-finish-placement-prediction)
+- **File needed:** Download and rename to `pubg.csv`
+- **Location:** Place in `data/` directory
+
+### Valorant
+
+- **Dataset:** [Valorant Match Data](https://www.kaggle.com/datasets/kyawsanhtet/valorant-match-data)
+- **File needed:** Download and rename to `valo.csv`
+- **Location:** Place in `data/` directory
+
+**Note:** If the above Kaggle links don't match your exact datasets, please update them with the correct links to your data sources.
+
 ## 🙏 Acknowledgments
 
-- Data sources for training the ML models
+- Kaggle dataset contributors for providing the esports data
 - Open source libraries and frameworks used in this project
-
