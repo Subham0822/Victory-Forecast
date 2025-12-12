@@ -19,10 +19,9 @@ Victory Forecast/
 │   ├── app.py           # Main API server
 │   └── requirements.txt # Python dependencies
 ├── client/              # Next.js frontend application
-│   └── EsportsOracle/
-│       ├── src/         # Source code
-│       ├── package.json # Node.js dependencies
-│       └── README.md    # Frontend documentation
+│   ├── src/             # Source code
+│   ├── package.json     # Node.js dependencies
+│   └── README.md        # Frontend documentation
 ├── dashboards/          # Streamlit dashboard applications
 │   ├── app_csgo_vs.py
 │   ├── app_valorant_vs.py
@@ -94,7 +93,7 @@ The API will be available at `http://localhost:8000`
 1. Navigate to the client directory:
 
 ```bash
-cd client/EsportsOracle
+cd client
 ```
 
 2. Install Node.js dependencies:
